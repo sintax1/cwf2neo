@@ -25,21 +25,5 @@ Getting Started
 
     # The NICE CWF is ready to use in your Neo4j database!
 
-.. toctree::
-   :maxdepth: 4
-
-   cwf2neo
-   config
-   example
-   cypher.examples
-   cwf2neo.tests
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 .. _NICE Cybersecurity Workforce Framework: https://www.nist.gov/itl/applied-cybersecurity/nice/resources/nice-cybersecurity-workforce-framework
 .. _Neo4j: https://neo4j.com/

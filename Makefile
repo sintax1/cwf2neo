@@ -38,7 +38,7 @@ test: devbuild
 	venv/bin/pytest cwf2neo/tests
 
 build-docs:
-	sphinx-build docs/ docs/build
+	sphinx-build -T -D language=en docs/ docs/_build/html
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 
