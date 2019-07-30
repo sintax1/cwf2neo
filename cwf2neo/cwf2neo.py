@@ -19,7 +19,6 @@ from cwf2neo.neo4j import Neo4j
 from cwf2neo.utils import file_download, list2dict, parse_ksats
 
 log = logging.getLogger(__name__)
-config = confuse.LazyConfig('cwf2neo', __name__)
 
 # Static list of NICE CWF Categories since we don't have an easy to parse
 # source
@@ -97,6 +96,7 @@ class CWF(object):
 
         self.temp_dir = self.__create_temp_directory()
         self.db = None
+        self.config = confuse.LazyConfig('cwf2neo', __name__)
 
     def __del__(self):
         """Destructor for cleanup
@@ -174,11 +174,11 @@ class CWF(object):
         log.info('Configuring Neo4j connection')
 
         self.db = Neo4j(
-            host=config['neo4j']['host'].get(),
-            port=config['neo4j']['port'].get(),
+            host=self.config['neo4j']['host'].get(),
+            port=self.config['neo4j']['port'].get(),
             auth=(
-                config['neo4j']['user'].get(),
-                config['neo4j']['pass'].get())
+                self.config['neo4j']['user'].get(),
+                self.config['neo4j']['pass'].get())
             )
 
     def get_temp_directory(self):
@@ -196,8 +196,8 @@ class CWF(object):
 
         log.info('Downloading data sources')
 
-        for data_source in config['data_sources'].get():
-            self.__download_source(config['data_sources'][data_source].get())
+        for data_source in self.config['data_sources'].get():
+            self.__download_source(self.config['data_sources'][data_source].get())
 
     def import_NIST_Cybersecurity_Framework(self):
         """Import the NIST Cybersecurity Framework into the neo4j database
@@ -206,7 +206,7 @@ class CWF(object):
         log.info("Importing NIST Cybersecurity Framework")
 
         workbook_name = \
-            config['data_sources']['NIST']['cf']['local_filename'].get()
+            self.config['data_sources']['NIST']['cf']['local_filename'].get()
         workbook = xlrd.open_workbook(
             filename=os.path.join(self.temp_dir, workbook_name))
 
@@ -456,7 +456,7 @@ class CWF(object):
         self.add_NICE_Categories()
 
         workbook_name = os.path.basename(
-            config['data_sources']['NICE']['cwf']['local_filename'].get())
+            self.config['data_sources']['NICE']['cwf']['local_filename'].get())
         workbook = xlrd.open_workbook(
             filename=os.path.join(self.temp_dir, workbook_name))
 
@@ -471,7 +471,7 @@ class CWF(object):
         import into the neo4j database
         """
 
-        NICE_Competencies_ref = config['data_sources']['NICE']['competencies']
+        NICE_Competencies_ref = self.config['data_sources']['NICE']['competencies']
         workbook_name = NICE_Competencies_ref['local_filename'].get()
         sheet_name = 'KSAs mapped to Competency'
 
@@ -540,7 +540,7 @@ class CWF(object):
         import into the neo4j database
         """
 
-        NICE_Competencies_ref = config['data_sources']['NICE']['competencies']
+        NICE_Competencies_ref = self.config['data_sources']['NICE']['competencies']
         workbook_name = NICE_Competencies_ref['local_filename'].get()
         sheet_name = 'Competency Descriptions'
 
