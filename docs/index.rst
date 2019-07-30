@@ -11,7 +11,7 @@ Getting Started
 
 .. code-block:: bash
 
-    pip install cwf2neo
+    pip install --user cwf2neo
 
 .. code-block:: python
 
