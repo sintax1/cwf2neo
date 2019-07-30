@@ -15,5 +15,6 @@ setup(
         'py2neo',
         'xlrd',
         'bumpversion',
+        'twine'
     ]
 )
