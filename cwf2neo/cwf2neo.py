@@ -4,23 +4,22 @@ import re
 import shutil
 import tempfile
 
-import confuse
 import xlrd
 
 from progress.bar import IncrementalBar
 from progress.counter import Counter
 from py2neo.database import ClientError
 
-from .graph_objects import (KSAT, NICECategory, NICECompetency,
-                            NICECompetencyGroup, NICESpecialtyArea,
-                            NICEWorkrole, NISTCategory, NISTFunction,
-                            NISTReference, NISTSubCategory)
-from .neo4j import Neo4j
-from .utils import file_download, list2dict, parse_ksats
+from cwf2neo import config
+from cwf2neo.graph_objects import (
+    KSAT, NICECategory, NICECompetency,
+    NICECompetencyGroup, NICESpecialtyArea,
+    NICEWorkrole, NISTCategory, NISTFunction,
+    NISTReference, NISTSubCategory)
+from cwf2neo.neo4j import Neo4j
+from cwf2neo.utils import file_download, list2dict, parse_ksats
 
 log = logging.getLogger(__name__)
-
-cfg = confuse.Configuration('cwf2neo', __name__)
 
 # Static list of NICE CWF Categories since we don't have an easy to parse
 # source
@@ -175,9 +174,12 @@ class CWF(object):
         log.info('Configuring Neo4j connection')
 
         self.db = Neo4j(
-            host=cfg['neo4j']['host'].get(),
-            port=cfg['neo4j']['port'].get(),
-            auth=(cfg['neo4j']['user'].get(), cfg['neo4j']['pass'].get()))
+            host=config['neo4j']['host'].get(),
+            port=config['neo4j']['port'].get(),
+            auth=(
+                config['neo4j']['user'].get(),
+                config['neo4j']['pass'].get())
+            )
 
     def get_temp_directory(self):
         """Get the current temp directory in use
@@ -194,8 +196,8 @@ class CWF(object):
 
         log.info('Downloading data sources')
 
-        for data_source in cfg['data_sources'].get():
-            self.__download_source(cfg['data_sources'][data_source].get())
+        for data_source in config['data_sources'].get():
+            self.__download_source(config['data_sources'][data_source].get())
 
     def import_NIST_Cybersecurity_Framework(self):
         """Import the NIST Cybersecurity Framework into the neo4j database
@@ -204,7 +206,7 @@ class CWF(object):
         log.info("Importing NIST Cybersecurity Framework")
 
         workbook_name = \
-            cfg['data_sources']['NIST']['cf']['local_filename'].get()
+            config['data_sources']['NIST']['cf']['local_filename'].get()
         workbook = xlrd.open_workbook(
             filename=os.path.join(self.temp_dir, workbook_name))
 
@@ -454,7 +456,7 @@ class CWF(object):
         self.add_NICE_Categories()
 
         workbook_name = os.path.basename(
-            cfg['data_sources']['NICE']['cwf']['local_filename'].get())
+            config['data_sources']['NICE']['cwf']['local_filename'].get())
         workbook = xlrd.open_workbook(
             filename=os.path.join(self.temp_dir, workbook_name))
 
@@ -470,7 +472,7 @@ class CWF(object):
         """
 
         workbook_name = \
-            cfg['data_sources']['NICE']['competencies']['local_filename'].get()
+            config['data_sources']['NICE']['competencies']['local_filename'].get()
         sheet_name = 'KSAs mapped to Competency'
 
         workbook = xlrd.open_workbook(
@@ -539,7 +541,7 @@ class CWF(object):
         """
 
         workbook_name = \
-            cfg['data_sources']['NICE']['competencies']['local_filename'].get()
+            config['data_sources']['NICE']['competencies']['local_filename'].get()
         sheet_name = 'Competency Descriptions'
 
         workbook = xlrd.open_workbook(
