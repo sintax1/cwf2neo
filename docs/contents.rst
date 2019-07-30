@@ -12,6 +12,7 @@ Sphinx documentation contents
    example
    cypher.examples
    cwf2neo.tests
+   contributing
 
 Indices and tables
 ==================
