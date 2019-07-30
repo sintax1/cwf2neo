@@ -14,7 +14,7 @@ Getting Started
 
 .. code-block:: python
 
-    from cwf2neo.cwf2neo import CWF
+    from cwf2neo import CWF
 
     # Get an instance of the CWF object used to interact with the Neo4j database
     cwf = CWF()
@@ -25,11 +25,13 @@ Getting Started
     # The NICE CWF is ready to use in your Neo4j database!
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
    cwf2neo
    config
-   examples
+   example
+   cypher.examples
+   cwf2neo.tests
 
 Indices and tables
 ==================

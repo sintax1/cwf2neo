@@ -2,5 +2,5 @@
 API
 ***
 
-.. autoclass:: cwf2neo.cwf2neo.CWF
+.. autoclass:: cwf2neo.CWF
     :members:

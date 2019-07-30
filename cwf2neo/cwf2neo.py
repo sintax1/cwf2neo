@@ -3,14 +3,13 @@ import os
 import re
 import shutil
 import tempfile
-
+import confuse
 import xlrd
 
 from progress.bar import IncrementalBar
 from progress.counter import Counter
 from py2neo.database import ClientError
 
-from cwf2neo import config
 from cwf2neo.graph_objects import (
     KSAT, NICECategory, NICECompetency,
     NICECompetencyGroup, NICESpecialtyArea,
@@ -20,6 +19,7 @@ from cwf2neo.neo4j import Neo4j
 from cwf2neo.utils import file_download, list2dict, parse_ksats
 
 log = logging.getLogger(__name__)
+config = confuse.Configuration('cwf2neo', __name__)
 
 # Static list of NICE CWF Categories since we don't have an easy to parse
 # source
@@ -471,8 +471,8 @@ class CWF(object):
         import into the neo4j database
         """
 
-        workbook_name = \
-            config['data_sources']['NICE']['competencies']['local_filename'].get()
+        NICE_Competencies_ref = config['data_sources']['NICE']['competencies']
+        workbook_name = NICE_Competencies_ref['local_filename'].get()
         sheet_name = 'KSAs mapped to Competency'
 
         workbook = xlrd.open_workbook(
@@ -540,8 +540,8 @@ class CWF(object):
         import into the neo4j database
         """
 
-        workbook_name = \
-            config['data_sources']['NICE']['competencies']['local_filename'].get()
+        NICE_Competencies_ref = config['data_sources']['NICE']['competencies']
+        workbook_name = NICE_Competencies_ref['local_filename'].get()
         sheet_name = 'Competency Descriptions'
 
         workbook = xlrd.open_workbook(

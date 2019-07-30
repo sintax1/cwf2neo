@@ -38,10 +38,9 @@ test: devbuild
 	venv/bin/pytest cwf2neo/tests
 
 build-docs:
-	sphinx-apidoc -o docs/ . setup.py "*conftest*"
+	sphinx-build docs/ docs/build
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
-	$(MAKE) -C docs doctest
 
 docs: build-docs
 	open docs/_build/html/index.html

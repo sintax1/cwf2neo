@@ -11,11 +11,11 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 # import sphinx_rtd_theme
-from sphinx.highlighting import lexers
+from sphinx.highlighting import lexers # NOQA
 from pygments.lexers import get_lexer_by_name
 
 import os
-import sys
+import sys # NOQA
 sys.path.insert(0, os.path.abspath('..'))
 
 cypher_lexer = get_lexer_by_name("py2neo.cypher")
