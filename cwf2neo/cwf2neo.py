@@ -19,7 +19,7 @@ from cwf2neo.neo4j import Neo4j
 from cwf2neo.utils import file_download, list2dict, parse_ksats
 
 log = logging.getLogger(__name__)
-config = confuse.Configuration('cwf2neo', __name__)
+config = confuse.LazyConfig('cwf2neo', __name__)
 
 # Static list of NICE CWF Categories since we don't have an easy to parse
 # source
