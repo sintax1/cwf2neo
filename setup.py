@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='cwf2neo',
-    version='0.1.0',
+    version='0.2.0',
     packages=['cwf2neo'],
     license='Apache License 2.0',
     description='cwf2neo is a Python library use to download, '
