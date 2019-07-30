@@ -1,6 +1,6 @@
-***********
+===========
 config.yaml
-***********
+===========
 
 Configuration file used to define Neo4j connection parameters and
 NIST/NICE data sources.
