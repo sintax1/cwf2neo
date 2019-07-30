@@ -1,7 +1,6 @@
 import logging
 
 import pytest
-
 from neobolt.addressing import AddressError
 from neobolt.exceptions import AuthError, ServiceUnavailable
 

@@ -8,7 +8,7 @@ using this (*cwf2neo*) python library.
 
 .. note::
 
-    Executing Cypher queries will require you to connect to Neo4J using the built-in `Neo4j Browser`_ (If installed locally: `http://localhost:7474/browser/ <http://localhost:7474/browser/>`_) or your favorite `Neo4j Driver/API`_ tool.
+    Executing Cypher queries will require you to connect to Neo4j using the built-in `Neo4j Browser`_ (If installed locally: `http://localhost:7474/browser/ <http://localhost:7474/browser/>`_) or your favorite `Neo4j Driver/API`_ tool.
 
     For example,
 

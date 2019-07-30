@@ -14,9 +14,13 @@ help:
 clean: clean-build clean-pyc
 
 clean-build:
+	python setup.py clean
 	rm -fr build/
 	rm -fr dist/
-	rm -fr *.egg-info
+	rm -fr .eggs *.egg-info
+	find . -name __pycache__ -exec rm -rf {} +
+	rm -rf .coverage* htmlcov
+	rm -rf build docs/_build docs/build
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -24,10 +28,10 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	flake8
+	flake8 cwf2neo
 
 lint-roll:
-	isort --recursive cwf2neo tests
+	isort --recursive cwf2neo
 	$(MAKE) lint
 
 devbuild: venv

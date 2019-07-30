@@ -1,7 +1,7 @@
 .. _contents:
 
-Sphinx documentation contents
-=============================
+cwf2neo documentation contents
+==============================
 
 .. toctree::
    :maxdepth: 4

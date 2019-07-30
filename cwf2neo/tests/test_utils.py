@@ -3,7 +3,7 @@ import shutil
 import tempfile
 
 import pytest
-from cwf2neo import config
+from cwf2neo import CWF
 from cwf2neo.utils import file_download, list2dict, parse_ksats
 
 
@@ -11,9 +11,10 @@ def test_file_download():
     """Ensure the function used to download files produces files on disk
      as expected
     """
+    cwf = CWF()
 
     temp_dir = tempfile.mkdtemp()
-    cwf = config['data_sources']['NICE']['cwf'].get()
+    cwf = cwf.config['data_sources']['NICE']['cwf'].get()
 
     file_download(cwf['source_url'], temp_dir, cwf['local_filename'])
 

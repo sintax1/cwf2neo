@@ -3,7 +3,7 @@ cwf2neo
 =======
 
 cwf2neo is a Python library use to download, parse and import
-the `NICE Cybersecurity Workforce Framework`_ into a Neo4J_ graphing database.
+the `NICE Cybersecurity Workforce Framework`_ into a Neo4j_ graphing database.
 
 ***************
 Getting Started

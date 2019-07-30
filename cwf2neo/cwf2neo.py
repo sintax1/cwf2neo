@@ -3,20 +3,18 @@ import os
 import re
 import shutil
 import tempfile
+
 import confuse
 import xlrd
-
+from cwf2neo.graph_objects import (KSAT, NICECategory, NICECompetency,
+                                   NICECompetencyGroup, NICESpecialtyArea,
+                                   NICEWorkrole, NISTCategory, NISTFunction,
+                                   NISTReference, NISTSubCategory)
+from cwf2neo.neo4j import Neo4j
+from cwf2neo.utils import file_download, list2dict, parse_ksats
 from progress.bar import IncrementalBar
 from progress.counter import Counter
 from py2neo.database import ClientError
-
-from cwf2neo.graph_objects import (
-    KSAT, NICECategory, NICECompetency,
-    NICECompetencyGroup, NICESpecialtyArea,
-    NICEWorkrole, NISTCategory, NISTFunction,
-    NISTReference, NISTSubCategory)
-from cwf2neo.neo4j import Neo4j
-from cwf2neo.utils import file_download, list2dict, parse_ksats
 
 log = logging.getLogger(__name__)
 

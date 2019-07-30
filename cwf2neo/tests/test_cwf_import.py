@@ -13,11 +13,10 @@ def test_cwf_init():
 
 def test_download_sources():
     from cwf2neo import CWF
-    from cwf2neo import config
-
-    NICE_sources = config['data_sources']['NICE'].get()
 
     cwf = CWF()
+
+    NICE_sources = cwf.config['data_sources']['NICE'].get()
 
     cwf.download_data_sources()
 
