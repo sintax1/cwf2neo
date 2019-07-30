@@ -1,0 +1,21 @@
+import os
+import re
+import urllib
+import urllib.request
+
+
+def file_download(source_url, local_dir, local_filename):
+    urllib.request.urlretrieve(
+        source_url, os.path.join(local_dir, local_filename))
+
+
+def list2dict(list_in):
+    return [dict(zip(list_in[0], c)) for c in list_in[1:]]
+
+
+def parse_ksats(data_input):
+    ksats = re.findall(
+        r"((?:K|S|A|T)[0-9]{4})", data_input, re.IGNORECASE | re.MULTILINE)
+    if not ksats:
+        raise Exception("No KSATs found: %s" % data_input)
+    return list(ksats)
