@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='cwf2neo',
-    version='0.11.0',
+    version='0.12.0',
     packages=['cwf2neo'],
     data_files=[('.', ['cwf2neo/config_default.yaml'])],
     license='Apache License 2.0',
