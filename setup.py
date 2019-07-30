@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='cwf2neo',
-    version='0.13.0',
+    version='0.14.0',
     packages=['cwf2neo'],
     package_dir={'cwf2neo': 'cwf2neo'},
     package_data={'cwf2neo': ['cwf2neo/config_default.yaml']},
