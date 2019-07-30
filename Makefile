@@ -45,9 +45,6 @@ build-docs:
 docs: build-docs
 	open docs/_build/html/index.html
 
-linux-docs: build-docs
-	xdg-open docs/_build/html/index.html
-
 release: clean
 	git config commit.gpgSign true
 	bumpversion minor

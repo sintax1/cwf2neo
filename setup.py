@@ -6,6 +6,7 @@ setup(
     packages=['cwf2neo'],
     package_dir={'cwf2neo': 'cwf2neo'},
     package_data={'cwf2neo': ['cwf2neo/config_default.yaml']},
+    include_package_data=True,
     license='Apache License 2.0',
     description='cwf2neo is a Python library use to download, '
     'parse and import the NICE Cybersecurity Workforce Framework '
