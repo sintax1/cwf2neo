@@ -197,7 +197,8 @@ class CWF(object):
         log.info('Downloading data sources')
 
         for data_source in self.config['data_sources'].get():
-            self.__download_source(self.config['data_sources'][data_source].get())
+            self.__download_source(
+                self.config['data_sources'][data_source].get())
 
     def import_NIST_Cybersecurity_Framework(self):
         """Import the NIST Cybersecurity Framework into the neo4j database
@@ -471,8 +472,8 @@ class CWF(object):
         import into the neo4j database
         """
 
-        NICE_Competencies_ref = self.config['data_sources']['NICE']['competencies']
-        workbook_name = NICE_Competencies_ref['local_filename'].get()
+        NICE_ref = self.config['data_sources']['NICE']
+        workbook_name = NICE_ref['competencies']['local_filename'].get()
         sheet_name = 'KSAs mapped to Competency'
 
         workbook = xlrd.open_workbook(
@@ -540,8 +541,8 @@ class CWF(object):
         import into the neo4j database
         """
 
-        NICE_Competencies_ref = self.config['data_sources']['NICE']['competencies']
-        workbook_name = NICE_Competencies_ref['local_filename'].get()
+        NICE_ref = self.config['data_sources']['NICE']
+        workbook_name = NICE_ref['competencies']['local_filename'].get()
         sheet_name = 'Competency Descriptions'
 
         workbook = xlrd.open_workbook(
