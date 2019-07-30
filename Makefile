@@ -51,7 +51,7 @@ linux-docs: build-docs
 
 release: clean
 	git config commit.gpgSign true
-	bumpversion $(bump)
+	bumpversion minor
 	git push upstream && git push upstream --tags
 	python setup.py sdist bdist_wheel
 	twine upload dist/*

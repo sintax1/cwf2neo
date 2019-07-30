@@ -50,7 +50,6 @@ ipython_config.py
 # pyenv
 .python-version
 
-
 # Environments
 .env
 .venv
