@@ -20,13 +20,27 @@ using this (*cwf2neo*) python library.
 ----
 
 Show All KSATs for the 'Cyber Defense Analyst' Workrole
-===========================================================
+=======================================================
 .. code-block:: cypher
 
     MATCH (w:NICEWorkrole {title:'Cyber Defense Analyst'})--(k:KSAT)
     RETURN DISTINCT k.id, k.description ORDER BY k.id, k.description
 
+Show All Workroles related to Knowledge K0019
+=============================================
+.. code-block:: cypher
 
+    MATCH (k:Knowledge {id:'K0019'})--(w:NICEWorkrole)
+    RETURN DISTINCT w.title
+
+Show All KSATs relevant for for all 52 Workroles
+================================================
+.. code-block:: cypher
+
+    MATCH (w:NICEWorkrole)-[r]-(k:KSAT)
+    WITH k, COUNT(r) AS rels
+    WHERE rels = 52
+    RETURN DISTINCT k.id, k.description
 
 .. _cypher: https://neo4j.com/developer/cypher-query-language/
 .. _`Neo4j Browser`: https://neo4j.com/developer/guide-neo4j-browser/

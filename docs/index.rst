@@ -25,5 +25,7 @@ Getting Started
 
     # The NICE CWF is ready to use in your Neo4j database!
 
+See :ref:`Cypher Query Language Examples` to get started using the database.
+
 .. _NICE Cybersecurity Workforce Framework: https://www.nist.gov/itl/applied-cybersecurity/nice/resources/nice-cybersecurity-workforce-framework
 .. _Neo4j: https://neo4j.com/
