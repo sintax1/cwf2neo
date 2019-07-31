@@ -43,7 +43,7 @@ Getting Started
 
     Edit :ref:`default_config.yaml` to change the settings.
 
-.. code-block::
+.. code-block:: bash
 
     $ python3
     Python 3.7.1 (default, Nov 28 2018, 11:51:47)
