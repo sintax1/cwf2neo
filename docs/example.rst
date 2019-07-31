@@ -2,6 +2,22 @@
 Usage Example
 =============
 
+.. note::
+
+    Default neo4j settings:
+        - host: 'localhost'
+        - port: 7687
+        - user: 'neo4j'
+        - pass: 'password'
+
+    Update config settings through the CWF object:
+
+        >>> cwf.config['neo4j']['user'] = 'myuser'
+        >>> cwf.config['neo4j']['pass'] = 'mypassword'
+        >>> cwf.config['neo4j']['host'] = 'my.neo4j.host'
+
+        See :ref:`default_config.yaml` for available settings.
+
 .. code-block:: python
 
     import logging
@@ -16,16 +32,6 @@ Usage Example
 
     # Import the NIST/NICE data into Neo4j
     cwf.initialize()
-
-.. note::
-
-    Default neo4j settings:
-        - host: 'localhost'
-        - port: 7687
-        - user: 'neo4j'
-        - pass: 'password'
-
-    Edit :ref:`default_config.yaml` to change the settings.
 
 .. code-block:: bash
 

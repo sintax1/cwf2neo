@@ -33,16 +33,6 @@ Getting Started
     # Import the NIST/NICE data into Neo4j
     cwf.initialize()
 
-.. note::
-
-    Default neo4j settings:
-        - host: 'localhost'
-        - port: 7687
-        - user: 'neo4j'
-        - pass: 'password'
-
-    Edit :ref:`default_config.yaml` to change the settings.
-
 .. code-block:: bash
 
     $ python3
