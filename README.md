@@ -7,4 +7,4 @@ Please see the online documentation at https://cwf2neo.readthedocs.io/.
 
 ----
 
-![Image of Neo4j NICE CWF Schema](docs/_static/images/neo4j_screenshot.png "Image of Neo4j NICE CWF Schema")
+![Image of Neo4j NICE CWF Schema](docs/_static/images/neo4j_schema.png "Image of Neo4j NICE CWF Schema")
