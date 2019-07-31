@@ -11,7 +11,8 @@ from cwf2neo.graph_objects import (KSAT, NICECategory, NICECompetency,
                                    NICEWorkrole, NISTCategory, NISTFunction,
                                    NISTReference, NISTSubCategory)
 from cwf2neo.neo4j import Neo4j
-from cwf2neo.utils import file_download, list2dict, parse_ksats
+from cwf2neo.utils import (file_download, list2dict,
+                           parse_ksats, ksat_id_to_type)
 from progress.bar import IncrementalBar
 from progress.counter import Counter
 from py2neo.database import ClientError
@@ -85,7 +86,7 @@ NICE_Category_map = {
 
 class CWF(object):
     """Main class used to parse the NICE cybersecurity Workforce Framework (CWF)
-    data sources and store in a Neo4j graphing database
+    data sources and store in a Neo4j graphing database.
     """
 
     def __init__(self):
@@ -400,13 +401,6 @@ class CWF(object):
 
         graph = self.db.graph
 
-        ksat_types_map = {
-            'K': 'Knowledge',
-            'S': 'Skill',
-            'A': 'Ability',
-            'T': 'Task'
-        }
-
         for sheet in all_sheets:
             if not re.match(r"[A-Z]+-[A-Z]+-[0-9]+", sheet.name):
                 continue
@@ -426,8 +420,7 @@ class CWF(object):
                 ksat_node = KSAT()
                 ksat_node.id = ksat
                 ksat_node.description = row[1]
-                ksat_node.type = ksat_types_map[ksat[0]]
-                # Todo: create function to do this
+                ksat_node.type = ksat_id_to_type(ksat)
 
                 # create the node if it doesn't exist
                 graph.create(ksat_node)

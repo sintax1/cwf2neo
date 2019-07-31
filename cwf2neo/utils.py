@@ -19,3 +19,21 @@ def parse_ksats(data_input):
     if not ksats:
         raise Exception("No KSATs found: %s" % data_input)
     return list(ksats)
+
+
+def ksat_id_to_type(ksat_id):
+
+    ksat_types_map = {
+        'K': 'Knowledge',
+        'S': 'Skill',
+        'A': 'Ability',
+        'T': 'Task'
+    }
+
+    ksat_prefix = ksat_id[0].upper()
+
+    if ksat_prefix not in ksat_types_map.keys():
+        raise Exception(
+            "'{}' is not a valid KSAT ID".format(ksat_id))
+
+    return ksat_types_map[ksat_prefix]

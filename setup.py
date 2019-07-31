@@ -8,7 +8,7 @@ setup(
     license='Apache License 2.0',
     description='cwf2neo is a Python library use to download, '
     'parse and import the NICE Cybersecurity Workforce Framework '
-    'into a Neo4j graphing database.',
+    'into a Neo4j graphing database, which can be used to run complex queries against.',
     author_email='ckoroscil@circadence.com',
     install_requires=[
         'confuse',
