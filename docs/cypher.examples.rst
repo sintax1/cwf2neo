@@ -13,7 +13,7 @@ using this (*cwf2neo*) python library.
     For example,
 
     .. image:: _static/images/neo4j_screenshot.png
-        :width: 400
+        :width: 500
         :alt: Neo4j Screenshot
         :align: center
 
@@ -26,6 +26,10 @@ Show all KSATs for the 'Cyber Defense Analyst' Workrole
     MATCH (w:NICEWorkrole {title:'Cyber Defense Analyst'})--(k:KSAT)
     RETURN DISTINCT k.id, k.description ORDER BY k.id, k.description
 
+.. image:: _static/images/example1.png
+    :width: 500
+    :align: center
+
 Show all Workroles related to Knowledge K0019
 =============================================
 
@@ -33,6 +37,19 @@ Show all Workroles related to Knowledge K0019
 
     MATCH (k:Knowledge {id:'K0019'})--(w:NICEWorkrole)
     RETURN DISTINCT w.title
+
+.. image:: _static/images/example2a.png
+    :width: 500
+    :align: center
+
+.. code-block:: cypher
+
+    MATCH p=(k:Knowledge {id:'K0019'})--(w:NICEWorkrole)
+    RETURN p
+
+.. image:: _static/images/example2b.png
+    :width: 500
+    :align: center
 
 Show the common KSATs across all 52 Workroles
 =============================================
@@ -44,6 +61,10 @@ Show the common KSATs across all 52 Workroles
     WHERE rels = 52
     RETURN DISTINCT k.id, k.description
 
+.. image:: _static/images/example3.png
+    :width: 500
+    :align: center
+
 Show all KSAs and Workroles related to the 'Policy Management' Competency
 =========================================================================
 
@@ -53,6 +74,10 @@ Show all KSAs and Workroles related to the 'Policy Management' Competency
     MATCH (k)--(w:NICEWorkrole)
     WITH c, k, COLLECT(w.title) AS Workroles
     RETURN DISTINCT c.name, c.description, k.id, k.description, Workroles
+
+.. image:: _static/images/example4.png
+    :width: 500
+    :align: center
 
 Show all Workroles and Competencies related to a list of KSATs
 ==============================================================
@@ -70,6 +95,10 @@ Show all Workroles and Competencies related to a list of KSATs
     WITH k, c, COLLECT(DISTINCT w.title) AS Workroles
     RETURN DISTINCT k.id, k.description, c.id, c.name, c.description, Workroles
 
+.. image:: _static/images/example5.png
+    :width: 500
+    :align: center
+
 Use `full-text search`_ to find KSATs related to a given task description
 =========================================================================
 
@@ -80,6 +109,10 @@ Use `full-text search`_ to find KSATs related to a given task description
     WITH *
     WHERE score > 0.2
     RETURN node.id, node.description, score
+
+.. image:: _static/images/example6.png
+    :width: 500
+    :align: center
 
 Show All Workroles related to NIST Recover Function
 ===================================================
@@ -93,6 +126,10 @@ Show All Workroles related to NIST Recover Function
 
     MATCH (n:NISTFunction {title:"RECOVER"})--(nc:NICECategory)--(ns:NICESpecialtyArea)--(w:NICEWorkrole)
     RETURN n.title AS `NIST Function`, nc.title AS `NICE Category`, ns.title AS `NICE Specialty Area`, w.title AS `Workrole`, w.description AS `Workrole Description`
+
+.. image:: _static/images/example7.png
+    :width: 500
+    :align: center
 
 .. _cypher: https://neo4j.com/developer/cypher-query-language/
 .. _`Neo4j Browser`: https://neo4j.com/developer/guide-neo4j-browser/
