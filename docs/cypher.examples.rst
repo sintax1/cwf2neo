@@ -114,7 +114,7 @@ Use `full-text search`_ to find KSATs related to a given task description
     :width: 500
     :align: center
 
-Show All Workroles related to NIST Recover Function
+Show all Workroles related to NIST Recover Function
 ===================================================
 
 .. note::
