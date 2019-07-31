@@ -63,5 +63,7 @@ Usage Example
     INFO:cwf2neo.cwf2neo:Done Creating database index for KSATs
     >>>
 
+See :ref:`Cypher Query Language Examples` to get started using the database.
+
 .. _Neo4j Getting Started: https://neo4j.com/developer/get-started/
 .. _Neo4j Docker: https://hub.docker.com/_/neo4j
