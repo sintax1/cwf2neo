@@ -1,9 +1,9 @@
-===========
-config.yaml
-===========
+===================
+default_config.yaml
+===================
 
 Configuration file used to define Neo4j connection parameters and
-NIST/NICE data sources.
+NIST/NICE data sources. Located in the cwf2neo package directory.
 
 
 neo4j configuration

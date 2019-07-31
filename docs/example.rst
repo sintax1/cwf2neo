@@ -17,6 +17,16 @@ Usage Example
     # Import the NIST/NICE data into Neo4j
     cwf.initialize()
 
+.. note::
+
+    Default neo4j settings:
+        - host: 'localhost'
+        - port: 7687
+        - user: 'neo4j'
+        - pass: 'password'
+
+    Edit :ref:`default_config.yaml` to change the settings.
+
 .. code-block::
 
     $ python3
@@ -52,3 +62,6 @@ Usage Example
     INFO:cwf2neo.cwf2neo:KSAT Index already exists
     INFO:cwf2neo.cwf2neo:Done Creating database index for KSATs
     >>>
+
+.. _Neo4j Getting Started: https://neo4j.com/developer/get-started/
+.. _Neo4j Docker: https://hub.docker.com/_/neo4j

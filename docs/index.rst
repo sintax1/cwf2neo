@@ -6,6 +6,11 @@ cwf2neo is a Python library used to download, parse and import
 the `NICE Cybersecurity Workforce Framework`_ into a Neo4j_ graphing database,
 which can be used to run complex queries against.
 
+.. note::
+
+    cwf2neo requires a Neo4j database.
+    See `Neo4j Getting Started`_ to install one or `Neo4j Docker`_ to simply use a Docker container.
+
 ***************
 Getting Started
 ***************
@@ -27,6 +32,16 @@ Getting Started
 
     # Import the NIST/NICE data into Neo4j
     cwf.initialize()
+
+.. note::
+
+    Default neo4j settings:
+        - host: 'localhost'
+        - port: 7687
+        - user: 'neo4j'
+        - pass: 'password'
+
+    Edit :ref:`default_config.yaml` to change the settings.
 
 .. code-block::
 
@@ -70,3 +85,5 @@ See :ref:`Cypher Query Language Examples` to get started using the database.
 
 .. _NICE Cybersecurity Workforce Framework: https://www.nist.gov/itl/applied-cybersecurity/nice/resources/nice-cybersecurity-workforce-framework
 .. _Neo4j: https://neo4j.com/
+.. _Neo4j Getting Started: https://neo4j.com/developer/get-started/
+.. _Neo4j Docker: https://hub.docker.com/_/neo4j
