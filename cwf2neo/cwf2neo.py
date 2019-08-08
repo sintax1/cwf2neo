@@ -96,6 +96,8 @@ class CWF(object):
         self.temp_dir = self.__create_temp_directory()
         self.db = None
         self.config = confuse.LazyConfig('cwf2neo', __name__)
+        self.config.set_file(
+            os.path.join(os.path.dirname(__file__), 'config_default.yaml'))
 
     def __del__(self):
         """Destructor for cleanup
