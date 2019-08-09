@@ -99,9 +99,11 @@ class CWF(object):
         self.config.set_file(
             os.path.join(os.path.dirname(__file__), 'config_default.yaml'))
         if 'NEO4J_HOSTNAME' in os.environ.keys():
-            self.config['NEO4J_HOSTNAME'] = os.environ['NEO4J_HOSTNAME']
+            log.info("Setting Neo4j Hostname to: {}".format(os.environ['NEO4J_HOSTNAME']))
+            self.config['neo4j']['host'] = os.environ['NEO4J_HOSTNAME']
         if 'NEO4J_AUTH' in os.environ.keys():
-            self.config['NEO4J_AUTH'] = os.environ['NEO4J_AUTH']
+            self.config['neo4j']['user', self.config['neo4j']['pass']] = \
+                os.environ['NEO4J_AUTH'].split("/")
 
     def __del__(self):
         """Destructor for cleanup
