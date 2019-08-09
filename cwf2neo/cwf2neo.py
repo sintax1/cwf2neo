@@ -98,6 +98,10 @@ class CWF(object):
         self.config = confuse.LazyConfig('cwf2neo', __name__)
         self.config.set_file(
             os.path.join(os.path.dirname(__file__), 'config_default.yaml'))
+        if 'NEO4J_HOSTNAME' in os.environ.keys():
+            self.config['NEO4J_HOSTNAME'] = os.environ['NEO4J_HOSTNAME']
+        if 'NEO4J_AUTH' in os.environ.keys():
+            self.config['NEO4J_AUTH'] = os.environ['NEO4J_AUTH']
 
     def __del__(self):
         """Destructor for cleanup
