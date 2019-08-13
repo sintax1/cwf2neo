@@ -510,7 +510,7 @@ class CWF(object):
                 graph.create(competency_node)
                 graph.pull(competency_node)
 
-                competency_node.competency_group.add(competencygroup_node)
+                competency_node.nice_competency_group.add(competencygroup_node)
                 graph.push(competency_node)
 
                 # Add the KSA to Competency relationship
