@@ -1,4 +1,4 @@
-from py2neo.ogm import GraphObject, Property, Related, RelatedFrom, RelatedTo
+from py2neo.ogm import GraphObject, Property, Related
 
 
 class NISTFunction(GraphObject):
@@ -19,7 +19,7 @@ class NISTCategory(GraphObject):
     title = Property()
     description = Property()
 
-    function = RelatedFrom(NISTFunction, "CATEGORY")
+    nist_function = Related(NISTFunction)
 
 
 class NISTSubCategory(GraphObject):
@@ -29,7 +29,7 @@ class NISTSubCategory(GraphObject):
 
     id = Property()
     description = Property()
-    category = RelatedFrom(NISTCategory, "SUBCATEGORY")
+    nist_category = Related(NISTCategory)
 
 
 class NISTReference(GraphObject):
@@ -38,20 +38,7 @@ class NISTReference(GraphObject):
     __primarykey__ = "reference"
 
     reference = Property()
-    subcategory = RelatedFrom(NISTSubCategory, "REFERENCE")
-
-
-class KSAT(GraphObject):
-    """Neo4j Graph Object (node) representing a NICE KSAT
-    """
-    __primarykey__ = "id"
-
-    id = Property()
-    type = Property()
-    description = Property()
-
-    nice_workrole = RelatedTo("NICEWorkrole", "WORKROLE")
-    nice_competency = Related("NICECompetency", "COMPETENCY")
+    nist_subcategory = Related(NISTSubCategory)
 
 
 class NICECategory(GraphObject):
@@ -63,7 +50,7 @@ class NICECategory(GraphObject):
     title = Property()
     description = Property()
 
-    nist_function = RelatedTo(NISTFunction)
+    nist_function = Related(NISTFunction)
 
 
 class NICESpecialtyArea(GraphObject):
@@ -75,7 +62,7 @@ class NICESpecialtyArea(GraphObject):
     title = Property()
     description = Property()
 
-    category = RelatedFrom("NICECategory", "SPECIALTY_AREA")
+    nice_category = Related(NICECategory)
 
 
 class NICEWorkrole(GraphObject):
@@ -88,7 +75,7 @@ class NICEWorkrole(GraphObject):
     description = Property()
     opm_code = Property()
 
-    specialty_area = RelatedFrom("NICESpecialtyArea", "WORKROLE")
+    nice_specialty_area = Related(NICESpecialtyArea)
 
 
 class NICECompetencyGroup(GraphObject):
@@ -109,4 +96,17 @@ class NICECompetency(GraphObject):
     name = Property()
     description = Property()
 
-    competency_group = Related(NICECompetencyGroup)
+    nice_competency_group = Related(NICECompetencyGroup)
+
+
+class KSAT(GraphObject):
+    """Neo4j Graph Object (node) representing a NICE KSAT
+    """
+    __primarykey__ = "id"
+
+    id = Property()
+    type = Property()
+    description = Property()
+
+    nice_workrole = Related(NICEWorkrole)
+    nice_competency = Related(NICECompetency)

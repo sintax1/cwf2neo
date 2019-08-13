@@ -10,6 +10,7 @@ flake8 = "*"
 confuse = "*"
 flake8 = "*"
 xlrd = "*"
+cwf2neo = {path = "."}
 
 [requires]
 python_version = "3.7"

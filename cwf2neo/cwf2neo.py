@@ -249,7 +249,7 @@ class CWF(object):
                 graph.pull(nist_category_node)
 
                 # add the category to function relationship
-                nist_category_node.function.add(nist_function_node)
+                nist_category_node.nist_function.add(nist_function_node)
 
                 # update the graph with the new relationship
                 graph.push(nist_category_node)
@@ -270,7 +270,7 @@ class CWF(object):
                 graph.pull(nist_subcategory_node)
 
                 # add the category to subcategory relationship
-                nist_subcategory_node.category.add(nist_category_node)
+                nist_subcategory_node.nist_category.add(nist_category_node)
 
                 # update the graph with the new relationship
                 graph.push(nist_subcategory_node)
@@ -291,7 +291,7 @@ class CWF(object):
                 graph.pull(nist_reference_node)
 
                 # add the reference to subcategory relationship
-                nist_reference_node.subcategory.add(nist_subcategory_node)
+                nist_reference_node.nist_subcategory.add(nist_subcategory_node)
 
                 # update the graph with the new relationship
                 graph.push(nist_reference_node)
@@ -356,7 +356,7 @@ class CWF(object):
                     workrole_node.id = m[0]
 
                     # add the specialty area to nice category relationship
-                    specialty_area_node.category.add(
+                    specialty_area_node.nice_category.add(
                         NICECategory.match(graph, m[1]).first())
 
                     # store the new relationship
@@ -375,7 +375,7 @@ class CWF(object):
                 graph.pull(workrole_node)
 
                 # add the workrole to specialty area relationship
-                workrole_node.specialty_area.add(specialty_area_node)
+                workrole_node.nice_specialty_area.add(specialty_area_node)
 
                 # store the new relationship
                 graph.push(workrole_node)
