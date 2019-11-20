@@ -119,7 +119,7 @@ Show all Workroles related to NIST Recover Function
 
 .. note::
 
-    These relationaships are based on `NIST SP 800-181`_, Table 8 - Crosswalk of NICE Framework
+    These relationships are based on `NIST SP 800-181`_, Table 8 - Crosswalk of NICE Framework
     Workforce Categories to Cybersecurity Framework.
 
 .. code-block:: cypher
