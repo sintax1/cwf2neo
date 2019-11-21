@@ -164,13 +164,13 @@ tag-minor-release: .release tag
 tag-major-release: VERSION := $(shell . $(RELEASE_SUPPORT); nextMajorLevel)
 tag-major-release: .release tag 
 
-patch-release: tag-patch-release release
+patch-release: tag-patch-release docker-release
 	@echo $(VERSION)
 
-minor-release: tag-minor-release release
+minor-release: tag-minor-release docker-release
 	@echo $(VERSION)
 
-major-release: tag-major-release release
+major-release: tag-major-release docker-release
 	@echo $(VERSION)
 
 
