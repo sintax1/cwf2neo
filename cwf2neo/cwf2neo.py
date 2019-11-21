@@ -94,7 +94,7 @@ class CWF(object):
             neo4j_pass='password', neo4j_port=7687):
         """Constructor for initial setup
 
-        :param neo4j_host: Neo4j server hostname used to connect, defaults to 'localhost'
+        :param neo4j_host: Neo4j server hostname, defaults to 'localhost'
         :type neo4j_host: str, optional
         :param neo4j_user: Neo4j login username, defaults to 'neo4j'
         :type neo4j_user: str, optional
