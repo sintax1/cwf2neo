@@ -89,13 +89,27 @@ class CWF(object):
     data sources and store in a Neo4j graphing database.
     """
 
-    def __init__(self):
+    def __init__(
+        self, neo4j_host='localhost', neo4j_user='neo4j',
+            neo4j_pass='password', neo4j_port=7687):
         """Constructor for initial setup
-        """
 
+        :param neo4j_host: Neo4j server hostname used to connect, defaults to 'localhost'
+        :type neo4j_host: str, optional
+        :param neo4j_user: Neo4j login username, defaults to 'neo4j'
+        :type neo4j_user: str, optional
+        :param neo4j_pass: Neo4j login password, defaults to 'password'
+        :type neo4j_pass: str, optional
+        :param neo4j_port: Neo4j port to connect to, defaults to 7687
+        :type neo4j_port: int, optional
+        """
         self.temp_dir = self.__create_temp_directory()
         self.db = None
         self.config = confuse.LazyConfig('cwf2neo', __name__)
+        self.neo4j_host = os.getenv('NEO4J_HOST', neo4j_host)
+        self.neo4j_user = os.getenv('NEO4J_USER', neo4j_user)
+        self.neo4j_pass = os.getenv('NEO4J_PASS', neo4j_pass)
+        self.neo4j_port = os.getenv('NEO4J_PORT', neo4j_port)
 
     def __del__(self):
         """Destructor for cleanup
@@ -173,11 +187,11 @@ class CWF(object):
         log.info('Configuring Neo4j connection')
 
         self.db = Neo4j(
-            host=self.config['neo4j']['host'].get(),
-            port=self.config['neo4j']['port'].get(),
+            host=self.neo4j_host,
+            port=self.neo4j_port,
             auth=(
-                self.config['neo4j']['user'].get(),
-                self.config['neo4j']['pass'].get())
+                self.neo4j_user,
+                self.neo4j_pass)
             )
 
     def get_temp_directory(self):

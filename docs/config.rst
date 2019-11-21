@@ -6,34 +6,6 @@ Configuration file used to define Neo4j connection parameters and
 NIST/NICE data sources. Located in the cwf2neo package directory.
 
 
-neo4j configuration
-===================
-
-.. code-block:: yaml
-
-    neo4j:
-      host: localhost
-      user: neo4j
-      pass: password
-      port: 7687
-
-host
-""""
-Hostname used to connect to a Neo4j database
-
-user
-""""
-Username used to login to a Neo4j database
-
-pass
-""""
-Password used to login to a Neo4j database
-
-port
-""""
-Port used to connect to the Neo4j Connector (Default: Bolt)
-
-
 data_sources configuration
 ==========================
 

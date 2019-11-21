@@ -5,4 +5,5 @@ def test_config_parse():
     from cwf2neo import CWF
     cwf = CWF()
 
-    assert cwf.config['neo4j']['host'].get() == "localhost"
+    assert cwf.config['data_sources']['NIST']['cf']['source_url'].get() == \
+        "https://www.nist.gov/file/448306"

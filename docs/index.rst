@@ -8,8 +8,8 @@ which can be used to run complex queries against.
 
 .. note::
 
-    cwf2neo requires a Neo4j database.
-    See `Neo4j Getting Started`_ to install one or `Neo4j Docker`_ to simply use a Docker container.
+    cwf2neo requires a Neo4j database running and accessible.
+    See `Neo4j Getting Started`_ to install one or `Neo4j Docker`_ to simply run a Neo4j Docker container.
 
 ***************
 Getting Started
@@ -17,6 +17,7 @@ Getting Started
 
 .. code-block:: bash
 
+    # Download and install cwf2neo package from PyPI
     pip install --user cwf2neo
 
 .. code-block:: python
@@ -28,10 +29,13 @@ Getting Started
     logging.basicConfig(level=logging.INFO)
 
     # Get an instance of the CWF object used to interact with the Neo4j database
-    cwf = CWF()
+    cwf = CWF(neo4j_host='localhost', neo4j_user='neo4j', neo4j_pass='password', neo4j_port=7687)
 
     # Import the NIST/NICE data into Neo4j
     cwf.initialize()
+
+
+Example Output:
 
 .. code-block:: bash
 
@@ -41,7 +45,7 @@ Getting Started
     Type "help", "copyright", "credits" or "license" for more information.
     >>> import logging
     >>> from cwf2neo import CWF
-    >>> cwf = CWF()
+    >>> cwf = CWF(neo4j_host='localhost', neo4j_user='neo4j', neo4j_pass='password', neo4j_port=7687)
     >>> logging.basicConfig(level=logging.INFO)
     >>> cwf.initialize()
     INFO:cwf2neo.cwf2neo:Configuring Neo4j connection
