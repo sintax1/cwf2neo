@@ -109,7 +109,7 @@ class CWF(object):
         self.neo4j_host = os.getenv('NEO4J_HOST', neo4j_host)
         self.neo4j_user = os.getenv('NEO4J_USER', neo4j_user)
         self.neo4j_pass = os.getenv('NEO4J_PASS', neo4j_pass)
-        self.neo4j_port = os.getenv('NEO4J_PORT', neo4j_port)
+        self.neo4j_port = os.getenv('NEO4J_BOLT_PORT', neo4j_port)
 
     def __del__(self):
         """Destructor for cleanup
