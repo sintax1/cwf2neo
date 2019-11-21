@@ -3,6 +3,7 @@ CURRENT_SIGN_SETTING := $(shell git config commit.gpgSign)
 .PHONY: clean-pyc clean-build docs
 
 help:
+	@echo "clean - run all cleanup tasks"
 	@echo "clean-build - remove build artifacts"
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "lint - check style with flake8"
