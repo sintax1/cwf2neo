@@ -1,0 +1,20 @@
+version: "3"
+services:
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=${NEO4J_USER}/${NEO4J_PASS}
+
+  cwf2neo:
+    build: .
+    image: sintax/cwf2neo
+    environment:
+      - NEO4J_HOST
+      - NEO4J_HTTP_PORT
+      - NEO4J_BOLT_PORT
+      - NEO4J_USER
+      - NEO4J_PASS
+    command: ["./wait-for-it.sh", "${NEO4J_HOST}:${NEO4J_HTTP_PORT}", "--", "python", "app.py"]
