@@ -563,14 +563,11 @@ class CWF(object):
 
             # Cypher query to update the Competency description
             statement = """MATCH (n:NICECompetency)
-                        WHERE n.id = {n}
-                        SET n.description = {d}"""
+                        WHERE n.id = $n
+                        SET n.description = $d"""
 
             # Add to the transaction
-            tx.run(
-                statement,
-                {"n": row['Competency ID'], "d": row['Description']}
-            )
+            tx.run(statement, n=row['Competency ID'], d=row['Description'])
 
         # Commit the transactions to the databse
         tx.commit()
