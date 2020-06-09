@@ -31,4 +31,4 @@ urllib3==1.24.3
 wcwidth==0.1.7
 xlrd==1.2.0
 zipp==0.5.2
-cwf2neo
+cwf2neo>=0.48.0
