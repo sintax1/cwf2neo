@@ -166,16 +166,16 @@ class CWF(object):
         self.setup_neo4j_connection()
 
         # Download the official sources of data from NIST/NICE
-        #self.download_data_sources()
+        self.download_data_sources()
 
         # Import the Cybersecurity Framework
-        #self.import_NIST_Cybersecurity_Framework()
+        self.import_NIST_Cybersecurity_Framework()
 
         # Import the Cybersecurity Workforce Framework
-        #self.import_NICE_CWF()
+        self.import_NICE_CWF()
 
         # Import the KSA Competencies
-        #self.import_NICE_Competencies()
+        self.import_NICE_Competencies()
 
         # Create an index for fulltext searches across all KSATs
         self.create_db_KSAT_index()
