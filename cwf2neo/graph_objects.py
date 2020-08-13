@@ -83,7 +83,8 @@ class NICECompetencyGroup(GraphObject):
     """
     __primarykey__ = "id"
 
-    id = Property()
+    # Competency Group ID removed in 30 June 2020 update
+    # id = Property()
     name = Property()
 
 

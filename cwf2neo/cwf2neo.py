@@ -510,7 +510,9 @@ class CWF(object):
 
                 # Add the Competency Group
                 competencygroup_node = NICECompetencyGroup()
-                competencygroup_node.id = row['Competency Group ID']
+                # Competency Group ID removed in 30 June 2020 update
+                # competencygroup_node.id = row['Competency Group ID']
+                # Competency Group changed to Competency Grouping in 30 June 2020 update
                 competencygroup_node.name = row['Competency Group']
 
                 graph.create(competencygroup_node)
