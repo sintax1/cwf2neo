@@ -513,7 +513,7 @@ class CWF(object):
                 # Competency Group ID removed in 30 June 2020 update
                 # competencygroup_node.id = row['Competency Group ID']
                 # Competency Group changed to Competency Grouping in 30 June 2020 update
-                competencygroup_node.name = row['Competency Group']
+                competencygroup_node.name = row['Competency Grouping']
 
                 graph.create(competencygroup_node)
                 graph.pull(competencygroup_node)
