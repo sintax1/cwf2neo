@@ -347,9 +347,9 @@ class CWF(object):
                 specialty_area_node.id = m[2]
                 specialty_area_node.title = m[1]
 
-                if data['NICE Specialty Area Definition']:
+                if data['NICE Specialty Area Description']:
                     specialty_area_node.description = \
-                        data['NICE Specialty Area Definition']
+                        data['NICE Specialty Area Description']
 
                 # create the node if it doesn't exist
                 graph.create(specialty_area_node)
@@ -376,8 +376,8 @@ class CWF(object):
                     # store the new relationship
                     graph.push(specialty_area_node)
 
-                if data['Work Role Definition']:
-                    workrole_node.description = data['Work Role Definition']
+                if data['Work Role Description']:
+                    workrole_node.description = data['Work Role Description']
 
                 if data['OPM Code (Fed Use)']:
                     workrole_node.opm_code = data['OPM Code (Fed Use)']
