@@ -81,7 +81,7 @@ class NICEWorkrole(GraphObject):
 class NICECompetencyGroup(GraphObject):
     """Neo4j Graph Object (node) representing a NICE Competency Group
     """
-    __primarykey__ = "id"
+    #__primarykey__ = "id"
 
     # Competency Group ID removed in 30 June 2020 update
     # id = Property()
