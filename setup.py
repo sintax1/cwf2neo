@@ -23,6 +23,6 @@ setup(
         'confuse',
         'progress',
         'py2neo',
-        'xlrd'
+        'xlrd==1.2.0'
     ]
 )
