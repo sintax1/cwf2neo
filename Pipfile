@@ -38,7 +38,7 @@ xlrd = "==1.2.0"
 zipp = "==0.5.2"
 cwf2neo = "*"
 Pygments = "==2.3.1"
-PyYAML = "==5.1.1"
+PyYAML = "==5.4"
 setuptools = "*"
 pip = "*"
 
