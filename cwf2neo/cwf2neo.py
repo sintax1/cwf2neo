@@ -15,7 +15,6 @@ from cwf2neo.utils import (file_download, list2dict,
                            parse_ksats, ksat_id_to_type)
 from progress.bar import IncrementalBar
 from progress.counter import Counter
-from py2neo.database import ClientError
 
 log = logging.getLogger(__name__)
 
@@ -177,7 +176,6 @@ class CWF(object):
         # Import the KSA Competencies
         self.import_NICE_Competencies()
 
-        # Create an index for fulltext searches across all KSATs
         self.create_db_KSAT_index()
 
     def setup_neo4j_connection(self):
@@ -191,7 +189,8 @@ class CWF(object):
             port=self.neo4j_port,
             auth=(
                 self.neo4j_user,
-                self.neo4j_pass)
+                self.neo4j_pass),
+            secure=True
             )
 
     def get_temp_directory(self):
@@ -586,7 +585,7 @@ class CWF(object):
                 r'"ksat_index",'
                 r'["Knowledge", "Skill", "Ability", "Task"],'
                 r'["id", "description"])')
-        except ClientError as err:
+        except Exception as err:
             if err.code == 'Neo.ClientError.Procedure.ProcedureCallFailed':
                 log.info('KSAT Index already exists')
             else:
