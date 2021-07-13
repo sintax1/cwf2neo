@@ -109,6 +109,7 @@ class CWF(object):
         self.neo4j_user = os.getenv('NEO4J_USER', neo4j_user)
         self.neo4j_pass = os.getenv('NEO4J_PASS', neo4j_pass)
         self.neo4j_port = os.getenv('NEO4J_BOLT_PORT', neo4j_port)
+        self.neo4j_secure = os.getenv('NEO4J_SECURE', 'False').lower() in ('true', '1')
 
     def __del__(self):
         """Destructor for cleanup
@@ -185,14 +186,16 @@ class CWF(object):
 
         log.info('Configuring Neo4j connection')
 
+        print("secure: {}".format(self.neo4j_secure))
+
         self.db = Neo4j(
             host=self.neo4j_host,
             port=self.neo4j_port,
             auth=(
                 self.neo4j_user,
                 self.neo4j_pass),
-            secure=True
-            )
+            secure=self.neo4j_secure
+        )
 
     def get_temp_directory(self):
         """Get the current temp directory in use
