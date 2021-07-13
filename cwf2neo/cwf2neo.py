@@ -176,6 +176,7 @@ class CWF(object):
         # Import the KSA Competencies
         self.import_NICE_Competencies()
 
+        # Create an index for fulltext searches across all KSATs
         self.create_db_KSAT_index()
 
     def setup_neo4j_connection(self):
