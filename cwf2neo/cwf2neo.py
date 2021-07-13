@@ -186,8 +186,6 @@ class CWF(object):
 
         log.info('Configuring Neo4j connection')
 
-        print("secure: {}".format(self.neo4j_secure))
-
         self.db = Neo4j(
             host=self.neo4j_host,
             port=self.neo4j_port,
