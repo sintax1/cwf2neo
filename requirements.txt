@@ -8,7 +8,6 @@ Click==7.0
 colorama==0.4.1
 confuse==1.0.0
 cryptography==3.4.7
-cwf2neo==0.63.0
 docker==5.0.0
 english==2020.7.0
 entrypoints==0.3
