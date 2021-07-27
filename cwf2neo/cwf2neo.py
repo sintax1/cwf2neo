@@ -412,7 +412,10 @@ class CWF(object):
 
         all_sheets = workbook.sheets()
 
-        ksat_nodes = []
+        knowledge_nodes = []
+        skill_nodes = []
+        ability_nodes = []
+        task_nodes = []
         workrole_relationships = []
 
         for sheet in all_sheets:
@@ -431,15 +434,22 @@ class CWF(object):
                     # Ignore header rows that don't contain KSATs
                     continue
 
+                ksat_type = ksat_id_to_type(ksat)
                 ksat_node = KSAT()
                 ksat_node.id = ksat
                 ksat_node.description = row[1]
-                ksat_node.type = ksat_id_to_type(ksat)
+                ksat_node.type = ksat_type
+                ksat_node.__node__.add_label(ksat_type)
 
                 # create the node if it doesn't exist
-                ksat_nodes.append(ksat_node)
-
-                ksat_node.__node__.add_label(ksat_node.type.capitalize())
+                if ksat_type == "Knowledge":
+                    knowledge_nodes.append(ksat_node)
+                elif ksat_type == "Skill":
+                    skill_nodes.append(ksat_node)
+                elif ksat_type == "Ability":
+                    ability_nodes.append(ksat_node)
+                elif ksat_type == "Task":
+                    task_nodes.append(ksat_node)
 
                 workrole_node = NICEWorkrole()
                 workrole_node.id = workrole_id
@@ -450,7 +460,10 @@ class CWF(object):
 
         bar.finish()
 
-        self.db.add_nodes(ksat_nodes)
+        self.db.add_nodes(knowledge_nodes)
+        self.db.add_nodes(skill_nodes)
+        self.db.add_nodes(ability_nodes)
+        self.db.add_nodes(task_nodes)
         self.db.add_relationships(workrole_relationships)
 
         log.info("Done Parsing NICE CWF KSATs")
