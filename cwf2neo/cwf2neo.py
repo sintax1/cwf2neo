@@ -218,6 +218,14 @@ class CWF(object):
         """Import the NIST Cybersecurity Framework into the neo4j database
         """
 
+        nist_function_nodes = []
+        nist_category_nodes = []
+        nist_subcategory_nodes = []
+        nist_reference_nodes = []
+        nist_category_relationships = []
+        nist_subcategory_relationships = []
+        nist_reference_node_relationships = []
+
         log.info("Importing NIST Cybersecurity Framework")
 
         workbook_name = \
@@ -245,7 +253,7 @@ class CWF(object):
                 nist_function_node.id = m[2]
 
                 # Create the node if it doesn't exist
-                graph.create(nist_function_node)
+                nist_function_nodes.append(nist_function_node)
 
             if data['Category']:
                 m = re.match(
@@ -258,16 +266,10 @@ class CWF(object):
                 nist_category_node.description = m[3]
 
                 # Create the node if it doesn't exist
-                graph.create(nist_category_node)
-
-                # pull from the db to preserve existing relationships
-                graph.pull(nist_category_node)
+                nist_category_nodes.append(nist_category_node)
 
                 # add the category to function relationship
-                nist_category_node.nist_function.add(nist_function_node)
-
-                # update the graph with the new relationship
-                graph.push(nist_category_node)
+                nist_category_relationships.append((nist_category_node, 'NIST_FUNCTION', nist_function_node))
 
             if data['Subcategory']:
                 m = re.match(
@@ -279,16 +281,10 @@ class CWF(object):
                 nist_subcategory_node.description = m[2]
 
                 # Create the node if it doesn't exist
-                graph.create(nist_subcategory_node)
-
-                # pull from the db to preserve existing relationships
-                graph.pull(nist_subcategory_node)
+                nist_subcategory_nodes.append(nist_subcategory_node)
 
                 # add the category to subcategory relationship
-                nist_subcategory_node.nist_category.add(nist_category_node)
-
-                # update the graph with the new relationship
-                graph.push(nist_subcategory_node)
+                nist_subcategory_relationships.append((nist_subcategory_node, 'NIST_CATEGORY', nist_category_node))
 
             if data['Informative References']:
                 nist_reference_node = NISTReference()
@@ -300,20 +296,23 @@ class CWF(object):
                 nist_reference_node.reference = ref.strip()
 
                 # Create the node if it doesn't exist
-                graph.create(nist_reference_node)
-
-                # pull from the db to preserve existing relationships
-                graph.pull(nist_reference_node)
+                nist_reference_nodes.append(nist_reference_node)
 
                 # add the reference to subcategory relationship
-                nist_reference_node.nist_subcategory.add(nist_subcategory_node)
-
-                # update the graph with the new relationship
-                graph.push(nist_reference_node)
+                nist_reference_node_relationships.append((nist_reference_node, 'NIST_SUBCATEGORY', nist_subcategory_node))
 
             bar.next()
 
         bar.finish()
+
+        self.db.add_nodes(nist_function_nodes)
+        self.db.add_nodes(nist_category_nodes)
+        self.db.add_nodes(nist_subcategory_nodes)
+        self.db.add_nodes(nist_reference_nodes)
+        self.db.add_relationships(nist_category_relationships)
+        self.db.add_relationships(nist_subcategory_relationships)
+        self.db.add_relationships(nist_reference_node_relationships)
+
         log.info("Done importing NIST Cybersecurity Framework")
 
     def import_NICE_Workroles(self, workbook):
@@ -330,12 +329,15 @@ class CWF(object):
 
         number_of_categories = 7
 
+        specialty_area_nodes = []
+        workrole_nodes = []
+        category_relationships = []
+        specialty_area_relationships = []
+
         bar = IncrementalBar(
             'Importing NICE CWF Specialty Areas and Workroles ',
             max=len(rows) - number_of_categories,
             suffix='%(percent)d%% (%(index)d/%(max)d) [%(elapsed_td)s]')
-
-        graph = self.db.graph
 
         for data in rows:
             if data['NICE Specialty Area']:
@@ -353,10 +355,7 @@ class CWF(object):
                         data['NICE Specialty Area Description']
 
                 # create the node if it doesn't exist
-                graph.create(specialty_area_node)
-
-                # pull the existing relationships
-                graph.pull(specialty_area_node)
+                specialty_area_nodes.append(specialty_area_node)
 
             if data['Work Role']:
                 workrole_node = NICEWorkrole()
@@ -371,11 +370,10 @@ class CWF(object):
                     workrole_node.id = m[0]
 
                     # add the specialty area to nice category relationship
-                    specialty_area_node.nice_category.add(
-                        NICECategory.match(graph, m[1]).first())
+                    nice_category_node = NICECategory()
+                    nice_category_node.id = m[1]
 
-                    # store the new relationship
-                    graph.push(specialty_area_node)
+                    category_relationships.append((specialty_area_node, 'NICE_SPECIALTY_AREA', nice_category_node))
 
                 if data['Work Role Description']:
                     workrole_node.description = data['Work Role Description']
@@ -384,20 +382,20 @@ class CWF(object):
                     workrole_node.opm_code = data['OPM Code (Fed Use)']
 
                 # create the node if it doesn't exist
-                graph.create(workrole_node)
-
-                # pull the existing relationships
-                graph.pull(workrole_node)
+                workrole_nodes.append(workrole_node)
 
                 # add the workrole to specialty area relationship
-                workrole_node.nice_specialty_area.add(specialty_area_node)
-
-                # store the new relationship
-                graph.push(workrole_node)
+                specialty_area_relationships.append((workrole_node, 'NICE_SPECIALTY_AREA', specialty_area_node))
 
             bar.next()
 
         bar.finish()
+
+        self.db.add_nodes(specialty_area_nodes)
+        self.db.add_nodes(workrole_nodes)
+        self.db.add_relationships(category_relationships)
+        self.db.add_relationships(specialty_area_relationships)
+
         log.info("Done Importing NICE CWF Specialty Areas and Workroles")
 
     def import_NICE_KSAT(self, workbook):
@@ -414,7 +412,8 @@ class CWF(object):
 
         all_sheets = workbook.sheets()
 
-        graph = self.db.graph
+        ksat_nodes = []
+        workrole_relationships = []
 
         for sheet in all_sheets:
             if not re.match(r"[A-Z]+-[A-Z]+-[0-9]+", sheet.name):
@@ -438,22 +437,22 @@ class CWF(object):
                 ksat_node.type = ksat_id_to_type(ksat)
 
                 # create the node if it doesn't exist
-                graph.create(ksat_node)
-
-                # pull the current relationships from the db
-                graph.pull(ksat_node)
+                ksat_nodes.append(ksat_node)
 
                 ksat_node.__node__.add_label(ksat_node.type.capitalize())
 
-                ksat_node.nice_workrole.add(
-                    NICEWorkrole.match(graph, workrole_id).first())
+                workrole_node = NICEWorkrole()
+                workrole_node.id = workrole_id
 
-                # store the updated relationship in the db
-                graph.push(ksat_node)
+                workrole_relationships.append((ksat_node, 'NICE_WORKROLE', workrole_node))
 
                 bar.next()
 
         bar.finish()
+
+        self.db.add_nodes(ksat_nodes)
+        self.db.add_relationships(workrole_relationships)
+
         log.info("Done Parsing NICE CWF KSATs")
 
     def import_NICE_CWF(self):
@@ -488,13 +487,17 @@ class CWF(object):
 
         rows = list2dict(sheet._cell_values[sheet._first_full_rowx:])
 
+        competencygroup_nodes = []
+        competency_nodes = []
+        ksat_nodes = []
+        competencygroup_relationships = []
+        competency_relationships = []
+
         log.info("Importing NICE Competencies")
         bar = IncrementalBar(
             'Importing NICE Competencies ',
             max=len(rows),
             suffix='%(percent)d%% (%(index)d/%(max)d) [%(elapsed_td)s]')
-
-        graph = self.db.graph
 
         for row in rows:
             try:
@@ -504,10 +507,8 @@ class CWF(object):
 
             for ksat in ksats:
                 # Get the db node matching the ksat id
-                ksat_node = KSAT.match(graph, ksat).first()
-
-                # Get existing node data from the db
-                graph.pull(ksat_node)
+                ksat_node = KSAT()
+                ksat_node.id = ksat
 
                 # Add the Competency Group
                 competencygroup_node = NICECompetencyGroup()
@@ -516,27 +517,29 @@ class CWF(object):
                 # Competency Group changed to Competency Grouping in 30 June 2020 update
                 competencygroup_node.name = row['Competency Grouping']
 
-                graph.create(competencygroup_node)
-                graph.pull(competencygroup_node)
+                competencygroup_nodes.append(competencygroup_node)
 
                 # Add the Competency
                 competency_node = NICECompetency()
                 competency_node.id = row['Competency ID']
                 competency_node.name = row['Competency']
 
-                graph.create(competency_node)
-                graph.pull(competency_node)
+                competency_nodes.append(competency_node)
 
-                competency_node.nice_competency_group.add(competencygroup_node)
-                graph.push(competency_node)
+                #competency_node.nice_competency_group.add(competencygroup_node)
+                competencygroup_relationships.append((competency_node, 'NICE_COMPETENCY_GROUP', competencygroup_node))
 
                 # Add the KSA to Competency relationship
-                ksat_node.nice_competency.add(competency_node)
+                competency_relationships.append((ksat_node, 'NICE_COMPETENCY', competency_node))
 
-            # store in the db
-            graph.push(ksat_node)
-
+                ksat_nodes.append(ksat_node)
             bar.next()
+
+        self.db.add_nodes(competencygroup_nodes)
+        self.db.add_nodes(competency_nodes)
+        self.db.add_nodes(ksat_nodes)
+        self.db.add_relationships(competencygroup_relationships)
+        self.db.add_relationships(competency_relationships)
 
         # Import the competency definitions
         self.__import_NICE_Competency_descriptions()
@@ -607,7 +610,8 @@ class CWF(object):
             max=len(NICE_Categories),
             suffix='%(percent)d%% (%(index)d/%(max)d) [%(elapsed_td)s]')
 
-        graph = self.db.graph
+        category_nodes = []
+        category_relationships = []
 
         for category in NICE_Categories:
             category_node = NICECategory()
@@ -616,12 +620,17 @@ class CWF(object):
             category_node.description = category['description']
 
             for nist_function in NICE_Category_map[category['id']]:
-                category_node.nist_function.add(
-                    NISTFunction.match(graph, nist_function).first())
-
-            graph.push(category_node)
+                nist_function_node = NISTFunction()
+                nist_function_node.id = nist_function
+                category_relationships.append((category_node, 'NIST_Function', nist_function_node))
+            
+            category_nodes.append(category_node)
 
             bar.next()
 
         bar.finish()
+
+        self.db.add_nodes(category_nodes)
+        self.db.add_relationships(category_relationships)
+
         log.info("Done Adding NICE CWF Categories")
