@@ -11,7 +11,7 @@ else:
 
 setup(
     name='cwf2neo',
-    version='0.74.0',
+    version='0.75.0',
     packages=['cwf2neo'],
     include_package_data=True,
     license='Apache License 2.0',
